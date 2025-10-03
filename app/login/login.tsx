@@ -1,4 +1,8 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
 import "./login.css";
 
 interface IFormInput {
@@ -10,46 +14,68 @@ interface IFormInput {
 
 export default function Login() {
   const {
-    register,
+    control,
     handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm<IFormInput>();
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  })
+  const onSubmit = (data: any) => console.log(data)
 
-  const onSubmit = (data: IFormInput) => {
-    alert(JSON.stringify(data));
-  }; 
 
-  console.log(watch("example")); 
 
   return (
+    <>
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label>First Name</label>
-      <input
-        {...register("firstName", {
+   <Controller
+        control={control}
+        rules={{
           required: true,
           maxLength: 20,
           pattern: /^[A-Za-z]+$/i
-        })}
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <FormControl error variant="standard">
+        <InputLabel htmlFor="component-error">User Name</InputLabel>
+        <Input
+          placeholder="User Name"
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
+        />
+        {errors.username && <FormHelperText id="component-error-text">Error</FormHelperText>}
+      </FormControl>
+        )}
+        name="username"
       />
-      {errors?.firstName?.type === "required" && <p>This field is required</p>}
-      {errors?.firstName?.type === "maxLength" && (
-        <p>First name cannot exceed 20 characters</p>
-      )}
-      {errors?.firstName?.type === "pattern" && (
-        <p>Alphabetical characters only</p>
-      )}
-      <label>Laste Name</label>
-      <input {...register("lastName", { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/i })} />
-      {errors?.lastName?.type === "pattern" && (
-        <p>Alphabetical characters only</p>
-      )}
-      <label>Age</label>
-      <input {...register("age", { min: 18, max: 99 })} />
-      {errors.age && (
-        <p>You Must be older then 18 and younger then 99 years old</p>
-      )}
+
+<Controller
+        control={control}
+        rules={{
+          required: true,
+          maxLength: 20,
+          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/i
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <FormControl error variant="standard">
+        <InputLabel htmlFor="component-error">Password</InputLabel>
+        <Input
+          placeholder="Password"
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
+        />
+        {errors.password && <FormHelperText id="component-error-text">Error</FormHelperText>}
+      </FormControl>
+        )}
+        name="password"
+      />
       <input type="submit" />
     </form>
+
+    </>
   );
   }
