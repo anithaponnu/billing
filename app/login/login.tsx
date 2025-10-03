@@ -40,11 +40,11 @@ export default function Login() {
         <p>Alphabetical characters only</p>
       )}
       <label>Laste Name</label>
-      <input {...register("lastName", { pattern: /^[A-Za-z]+$/i })} />
+      <input {...register("lastName", { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/i })} />
       {errors?.lastName?.type === "pattern" && (
         <p>Alphabetical characters only</p>
       )}
-      <label>Age</label>a
+      <label>Age</label>
       <input {...register("age", { min: 18, max: 99 })} />
       {errors.age && (
         <p>You Must be older then 18 and younger then 99 years old</p>
