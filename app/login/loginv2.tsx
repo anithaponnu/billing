@@ -1,8 +1,7 @@
 import { Avatar, Box, Button, Container, FormHelperText, Paper, TextField, Typography } from "@mui/material";
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
 import { Controller, useForm } from "react-hook-form";
-import { Password } from "@mui/icons-material";
-import { log } from "console";
+
 
 
 export default function Loginv2() {
@@ -11,6 +10,7 @@ export default function Loginv2() {
         control,
         handleSubmit,
         formState: { errors },
+        watch
     } = useForm({
         defaultValues: {
             username: "",
@@ -19,29 +19,34 @@ export default function Loginv2() {
     })
     const onSubmit = (data: any) => console.log(data)
     const validatePassword = (password: any) => {
-        const minLength = 8;
-        const hasUpperCase = /[A-Z]/.test(password);
-        const hasLowerCase = /[a-z]/.test(password);
-        const hasNumber = /[0-9]/.test(password);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-        if (password.length < minLength) {
+        if(password!=undefined){
+            const minLength = 8;
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            if (password.length < minLength) {
+                return "Password must be at least 8 characters long.";
+            }
+            if (!hasUpperCase) {
+                return "Password must include at least one uppercase letter.";
+            }
+            if (!hasLowerCase) {
+                return "Password must include at least one lowercase letter.";
+            }
+            if (!hasNumber) {
+                return "Password must be include at least one number.";
+            }
+            if (!hasSpecialChar) {
+                return "Password must be include at least one special character.";
+            }
+        }else{
             return "Password must be at least 8 characters long.";
         }
-        if (!hasUpperCase) {
-            return "Password must include at least one uppercase letter.";
-        }
-        if (!hasLowerCase) {
-            return "Password must include at least one lowercase letter.";
-        }
-        if (!hasNumber) {
-            return "Password must be include at least one number.";
-        }
-        if (!hasSpecialChar) {
-            return "Password must be include at least one special character.";
-        }
     }
+    const fromvalue = watch()
+    console.log(fromvalue)
 
-    console.log(validatePassword("ani@2345A"))
     return (
         <Container maxWidth="xs">
             <Paper elevation={10} sx={{ marginTop: 8, padding: 2 }}>
@@ -94,7 +99,7 @@ export default function Loginv2() {
                         render={({ field: { onChange, onBlur, value } }) => (
 
                             <TextField
-                                error={errors.username ? true : false}
+                                error={errors.password ? true : false}
                                 placeholder="Enter password"
                                 fullWidth
                                 type="password"
@@ -106,7 +111,7 @@ export default function Loginv2() {
                         )}
                     />
                     {errors.password && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
-                        Invalied password
+                        {validatePassword(fromvalue.password)} 
                     </Typography>}
 
 
