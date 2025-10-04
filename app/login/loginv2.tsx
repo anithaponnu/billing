@@ -1,6 +1,8 @@
 import { Avatar, Box, Button, Container, FormHelperText, Paper, TextField, Typography } from "@mui/material";
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
 import { Controller, useForm } from "react-hook-form";
+import { Password } from "@mui/icons-material";
+import { log } from "console";
 
 
 export default function Loginv2() {
@@ -16,8 +18,30 @@ export default function Loginv2() {
         },
     })
     const onSubmit = (data: any) => console.log(data)
+    const validatePassword = (password: any) => {
+        const minLength = 8;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        if (password.length < minLength) {
+            return "Password must be at least 8 characters long.";
+        }
+        if (!hasUpperCase) {
+            return "Password must include at least one uppercase letter.";
+        }
+        if (!hasLowerCase) {
+            return "Password must include at least one lowercase letter.";
+        }
+        if (!hasNumber) {
+            return "Password must be include at least one number.";
+        }
+        if (!hasSpecialChar) {
+            return "Password must be include at least one special character.";
+        }
+    }
 
-
+    console.log(validatePassword("ani@2345A"))
     return (
         <Container maxWidth="xs">
             <Paper elevation={10} sx={{ marginTop: 8, padding: 2 }}>
@@ -62,29 +86,30 @@ export default function Loginv2() {
                         )}
                         name="username"
                     />
-{errors.username && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
+                    {errors.username && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
                         Invalied username
-                                        </Typography>}
+                    </Typography>}
 
-<Controller name="password" control={control} rules={{ required:true,maxLength:20, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/i}}
-render={({ field: { onChange, onBlur, value } })=>(
-    <TextField
-    error={errors.username ? true : false}
-    placeholder="Enter password"
-    fullWidth
-    type="password"
-    onBlur={onBlur}
+                    <Controller name="password" control={control} rules={{ required: true, maxLength: 20, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/i }}
+                        render={({ field: { onChange, onBlur, value } }) => (
+
+                            <TextField
+                                error={errors.username ? true : false}
+                                placeholder="Enter password"
+                                fullWidth
+                                type="password"
+                                onBlur={onBlur}
                                 onChange={onChange}
                                 value={value}
-/>
+                            />
 
-)}
-/>
-{errors.password && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
+                        )}
+                    />
+                    {errors.password && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
                         Invalied password
-                                        </Typography>}
+                    </Typography>}
 
-                   
+
                     <Button type="submit" variant="contained" fullWidth sx={{ mt: 1 }}>
                         Sign In
                     </Button>
