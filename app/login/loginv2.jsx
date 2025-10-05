@@ -17,8 +17,8 @@ export default function Loginv2() {
             password: "",
         },
     })
-    const onSubmit = (data: any) => console.log(data)
-    const validatePassword = (password: any) => {
+    const onSubmit = (data) => console.log(data)
+    const validatePassword = (password) => {
         if(password!=undefined){
             const minLength = 8;
             const hasUpperCase = /[A-Z]/.test(password);
@@ -46,7 +46,7 @@ export default function Loginv2() {
     }
     const fromvalue = watch()
 
-    const validateUsername =(username : any) => {
+    const validateUsername =(username ) => {
         if(username!=undefined){
             const minLength=6;
             const maxLength=20;

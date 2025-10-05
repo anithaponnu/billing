@@ -7,9 +7,9 @@ import {
   usePhoneInput,
 } from 'react-international-phone';
 import { Controller } from "react-hook-form";
-import { useEffect } from "react";
 
-export function Phonecontroller(props: any) {
+
+export function Phonecontroller(props) {
   const { control, errors, name } = props
   return (
     <Controller
@@ -31,7 +31,7 @@ export function Phonecontroller(props: any) {
 }
 
 
-export function PhoneMuiInput(props: any) {
+export function PhoneMuiInput(props) {
   const { value, onChange, error } = props
   const { inputValue, handlePhoneValueChange, inputRef, country, setCountry } =
     usePhoneInput({
@@ -97,8 +97,8 @@ export function PhoneMuiInput(props: any) {
                   },
                 }}
                 value={country.iso2}
-                onChange={(e: any) => setCountry(e.target.value)}
-                renderValue={(value: any) => (
+                onChange={(e) => setCountry(e.target.value)}
+                renderValue={(value) => (
                   <FlagImage iso2={value} style={{ display: 'flex' }} />
                 )}
               >
