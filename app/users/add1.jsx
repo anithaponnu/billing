@@ -2,8 +2,8 @@ import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, Rad
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Controller, useForm } from "react-hook-form";
 
-import { useState, type SetStateAction } from "react";
-import {PhoneMuiInput, Phonecontroller} from "~/component/phoneMuiInput";
+
+import { Phonecontroller} from "../component/phoneMuiInput";
 
 
 export default function addUser1() {
@@ -35,11 +35,10 @@ export default function addUser1() {
         },
 
     })
-    const [phone, setPhone] = useState("")
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const onSubmit = (data: any) => console.log(data)
+    const onSubmit = (data) => console.log(data)
     const fromvalue = watch()
-    const validateA = (x: any) => {
+    const validateA = (x) => {
         if (x != undefined) {
             const minLength = 1;
             const maxLength = 20;
@@ -59,15 +58,6 @@ export default function addUser1() {
 
     }
 
-    // function MyPhoneInput() {
-    //     const [phoneNumber, setPhoneNumber] = useState({});
-
-    //     const handleOnChange = (value: SetStateAction<{}>) => {
-    //       setPhoneNumber(value);
-    //       console.log(value);
-    //     };
-    // }
-    
     return (
         <Box m={2} component="form"
             onSubmit={handleSubmit(onSubmit)}

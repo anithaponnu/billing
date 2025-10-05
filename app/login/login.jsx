@@ -8,13 +8,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import "./login.css";
 
-interface IFormInput {
-  firstName: string;
-  lastName: string;
-  age: number;
-  example: string;
-}
-
 export default function Login() {
   const {
     control,
@@ -26,7 +19,7 @@ export default function Login() {
       password: "",
     },
   })
-  const onSubmit = (data: any) => console.log(data)
+  const onSubmit = (data) => console.log(data)
 
 
 

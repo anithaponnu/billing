@@ -6,10 +6,10 @@ import React from "react";
 export default function addUser() {
     const [user, setUser] = React.useState('');
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setUser(event.target.value as string);
+    const handleChange = (event) => {
+        setUser(event.target.value);
     };
-    const validateUsername =(username : any) => {
+    const validateUsername =(username ) => {
         if(username!=undefined){
             const minLength=6;
             const maxLength=20;
