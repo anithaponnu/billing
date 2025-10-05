@@ -1,7 +1,10 @@
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Typography, styled } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Controller, useForm } from "react-hook-form";
-import { X } from "node_modules/@mui/icons-material";
+
+import { useState, type SetStateAction } from "react";
+import {PhoneMuiInput, Phonecontroller} from "~/component/phoneMuiInput";
+
 
 export default function addUser1() {
     const VisuallyHiddenInput = styled('input')({
@@ -23,12 +26,16 @@ export default function addUser1() {
     } = useForm({
         defaultValues: {
             a: "",
-            a1:"",
+            a1: "",
             password: "",
-            e:"",
+            e: "",
+            ph:"+91",
+            ph1:""
+            
         },
 
     })
+    const [phone, setPhone] = useState("")
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const onSubmit = (data: any) => console.log(data)
     const fromvalue = watch()
@@ -51,6 +58,16 @@ export default function addUser1() {
         }
 
     }
+
+    // function MyPhoneInput() {
+    //     const [phoneNumber, setPhoneNumber] = useState({});
+
+    //     const handleOnChange = (value: SetStateAction<{}>) => {
+    //       setPhoneNumber(value);
+    //       console.log(value);
+    //     };
+    // }
+    console.log(errors)
     return (
         <Box m={2} component="form"
             onSubmit={handleSubmit(onSubmit)}
@@ -114,15 +131,10 @@ export default function addUser1() {
                     </Typography>}
                 </Grid>
                 <Grid size={12}>
-                    Phone Number
-                    <TextField
-                        autoFocus
-                        fullWidth
-                        placeholder="Enter Phone Number"
-                    />
+                    <Phonecontroller control={control} name={"ph"} errors={errors}/>
                 </Grid>
                 <Grid size={12} >Email
-                <Controller
+                    <Controller
                         control={control}
                         rules={{
                             required: true,
@@ -132,7 +144,7 @@ export default function addUser1() {
 
                             <TextField
                                 error={errors.e ? true : false}
-                                placeholder="Enter Firstname"
+                                placeholder="Enter Email"
                                 fullWidth
                                 autoFocus
                                 sx={{ mb: errors.e ? 0 : 2 }}
@@ -143,8 +155,8 @@ export default function addUser1() {
                         )}
                         name="e"
                     />
-                        {errors.e && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
-                         Invalide Email
+                    {errors.e && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
+                        Invalide Email
                     </Typography>}
                 </Grid>
                 <Grid size={6}>Date of Birth
@@ -194,8 +206,9 @@ export default function addUser1() {
                     <Button type="submit" variant="contained" sx={{ mt: 1 }}>
                         Save
                     </Button></Grid>
-                    
+
             </Grid>
+
         </Box>
     );
 
