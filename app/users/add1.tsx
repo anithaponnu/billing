@@ -25,9 +25,11 @@ export default function addUser1() {
             a: "",
             a1:"",
             password: "",
+            e:"",
         },
 
     })
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const onSubmit = (data: any) => console.log(data)
     const fromvalue = watch()
     const validateA = (x: any) => {
@@ -120,13 +122,30 @@ export default function addUser1() {
                     />
                 </Grid>
                 <Grid size={12} >Email
+                <Controller
+                        control={control}
+                        rules={{
+                            required: true,
+                            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i
+                        }}
+                        render={({ field: { onChange, onBlur, value } }) => (
 
-                    <TextField
-                        placeholder="Enter email"
-                        fullWidth
-                        autoFocus
-
+                            <TextField
+                                error={errors.e ? true : false}
+                                placeholder="Enter Firstname"
+                                fullWidth
+                                autoFocus
+                                sx={{ mb: errors.e ? 0 : 2 }}
+                                onBlur={onBlur}
+                                onChange={onChange}
+                                value={value}
+                            />
+                        )}
+                        name="e"
                     />
+                        {errors.e && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
+                         Invalide Email
+                    </Typography>}
                 </Grid>
                 <Grid size={6}>Date of Birth
                     <TextField
