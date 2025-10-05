@@ -67,7 +67,7 @@ export default function addUser1() {
     //       console.log(value);
     //     };
     // }
-    console.log(errors)
+    
     return (
         <Box m={2} component="form"
             onSubmit={handleSubmit(onSubmit)}
