@@ -23,11 +23,11 @@ type RouteFiles = {
     id: "root";
     page: "/" | "/login";
   };
-  "./users/add1.tsx": {
+  "./users/add1.jsx": {
     id: "users/add1";
     page: "/";
   };
-  "./login/login.tsx": {
+  "./login/login.jsx": {
     id: "login/login";
     page: "/login";
   };
