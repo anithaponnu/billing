@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Container, FormHelperText, Paper, TextField, Typography } from "@mui/material";
 import LockOutlineIcon from '@mui/icons-material/LockOutline';
 import { Controller, useForm } from "react-hook-form";
+import {validateAZaz} from "../helper"
 
 
 
@@ -46,25 +47,6 @@ export default function Loginv2() {
     }
     const fromvalue = watch()
 
-    const validateUsername =(username ) => {
-        if(username!=undefined){
-            const minLength=6;
-            const maxLength=20;
-            const hasreg = /^[A-Za-z]+$/.test(username);
-            if (username.length < minLength) {
-                return "Username must be at least 6 characters long.";
-            }
-            if (username.length > maxLength) {
-                return "Username must be at least 20 characters long.";
-            }
-            if(!hasreg){
-                return "only use uppercase and lowercase alpha character."
-            }
-        }else{
-            return "Username must be contain only a-z & A-Z, min 6 character max 8 character only."
-        }
-        const fromvalue = watch()
-    }
     return (
         <Container maxWidth="xs">
             <Paper elevation={10} sx={{ marginTop: 8, padding: 2 }}>
@@ -111,7 +93,7 @@ export default function Loginv2() {
                         name="username"
                     />
                     {errors.username && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
-                    {validateUsername(fromvalue.username)} 
+                    {validateAZaz(fromvalue.username,"Username",6,20)} 
                     </Typography>}
 
                     <Controller name="password" control={control} rules={{ required: true, maxLength: 20, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/i }}

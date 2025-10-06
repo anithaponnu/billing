@@ -4,6 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 
 
 import { Phonecontroller} from "../component/phoneMuiInput";
+import {validateAZaz} from "../helper"
+import { DateOfBirthPicker } from "../component/dateOfBirthPicker";
 
 
 export default function addUser1() {
@@ -35,28 +37,15 @@ export default function addUser1() {
         },
 
     })
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const onSubmit = (data) => console.log(data)
     const fromvalue = watch()
-    const validateA = (x) => {
-        if (x != undefined) {
-            const minLength = 1;
-            const maxLength = 20;
-            const hasreg = /^[A-Za-z]+$/.test(x);
-            if (x.length < minLength) {
-                return "Username must be at least 1 characters long.";
-            }
-            if (x.length > maxLength) {
-                return "Username must be at least 20 characters long.";
-            }
-            if (!hasreg) {
-                return "only use uppercase and lowercase alpha character."
-            }
-        } else {
-            return "Username must be contain only a-z & A-Z, min 6 character max 8 character only."
-        }
 
-    }
+    const today = new Date();
+  const pastDate = new Date();
+  pastDate.setFullYear(today.getFullYear() - 18);
+
+  const maxDate = pastDate.toISOString().split('T')[0]
 
     return (
         <Box m={2} component="form"
@@ -68,7 +57,7 @@ export default function addUser1() {
                         control={control}
                         rules={{
                             required: true,
-                            minLength: 1,
+                            minLength: 4,
                             maxLength: 20,
                             pattern: /^[A-Za-z]+$/i
                         }}
@@ -88,7 +77,7 @@ export default function addUser1() {
                         name="a"
                     />
                     {errors.a && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
-                        {validateA(fromvalue.a)}
+                        {validateAZaz(fromvalue.a,"Firstname",4,20)}
                     </Typography>}
 
                 </Grid>
@@ -117,7 +106,7 @@ export default function addUser1() {
                         name="a1"
                     />
                     {errors.a && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
-                        {validateA(fromvalue.a1)}
+                        {validateAZaz(fromvalue.a1,"Lastname",1,20)}
                     </Typography>}
                 </Grid>
                 <Grid size={12}>
@@ -128,7 +117,7 @@ export default function addUser1() {
                         control={control}
                         rules={{
                             required: true,
-                            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i
+                            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i
                         }}
                         render={({ field: { onChange, onBlur, value } }) => (
 
@@ -149,13 +138,8 @@ export default function addUser1() {
                         Invalide Email
                     </Typography>}
                 </Grid>
-                <Grid size={6}>Date of Birth
-                    <TextField
-                        autoFocus
-                        fullWidth
-                        placeholder="MM/DD/YY"
-                        type="date"
-                    />
+                <Grid size={6}>Date of Birth<br />
+                    <DateOfBirthPicker />
                 </Grid>
                 <Grid size={6}>Gender
                     <RadioGroup
