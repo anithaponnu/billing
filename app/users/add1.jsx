@@ -3,8 +3,8 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Controller, useForm } from "react-hook-form";
 
 
-import { Phonecontroller} from "../component/phoneMuiInput";
-import {validateAZaz} from "../helper"
+import { Phonecontroller } from "../component/phoneMuiInput";
+import { validateAZaz } from "../helper"
 import { DateOfBirthPicker } from "../component/dateOfBirthPicker";
 
 
@@ -31,9 +31,9 @@ export default function addUser1() {
             a1: "",
             password: "",
             e: "",
-            ph:"+91",
-            ph1:""
-            
+            ph: "+91",
+            ph1: ""
+
         },
 
     })
@@ -42,10 +42,10 @@ export default function addUser1() {
     const fromvalue = watch()
 
     const today = new Date();
-  const pastDate = new Date();
-  pastDate.setFullYear(today.getFullYear() - 18);
+    const pastDate = new Date();
+    pastDate.setFullYear(today.getFullYear() - 18);
 
-  const maxDate = pastDate.toISOString().split('T')[0]
+    const maxDate = pastDate.toISOString().split('T')[0]
 
     return (
         <Box m={2} component="form"
@@ -77,7 +77,7 @@ export default function addUser1() {
                         name="a"
                     />
                     {errors.a && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
-                        {validateAZaz(fromvalue.a,"Firstname",4,20)}
+                        {validateAZaz(fromvalue.a, "Firstname", 4, 20)}
                     </Typography>}
 
                 </Grid>
@@ -106,11 +106,11 @@ export default function addUser1() {
                         name="a1"
                     />
                     {errors.a && <Typography variant="caption" sx={{ mb: 2 }} color='error'>
-                        {validateAZaz(fromvalue.a1,"Lastname",1,20)}
+                        {validateAZaz(fromvalue.a1, "Lastname", 1, 20)}
                     </Typography>}
                 </Grid>
                 <Grid size={12}>
-                    <Phonecontroller control={control} name={"ph"} errors={errors}/>
+                    <Phonecontroller control={control} name={"ph"} errors={errors} />
                 </Grid>
                 <Grid size={12} >Email
                     <Controller
@@ -142,15 +142,27 @@ export default function addUser1() {
                     <DateOfBirthPicker />
                 </Grid>
                 <Grid size={6}>Gender
-                    <RadioGroup
-                        row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="row-radio-buttons-group"
-                    >
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    </RadioGroup>
+
+                    <Controller
+                        name="gender"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                            <RadioGroup
+                                {...field}
+                                row
+                                onChange={(e) => {
+                                    field.onChange(e); 
+                                    console.log("Selected Gender:", e.target.value); 
+                                }}
+                            >
+                                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                            </RadioGroup>
+                        )}
+                    />
                 </Grid>
+                
                 <Grid size={12} >Address
                     <TextField
                         multiline

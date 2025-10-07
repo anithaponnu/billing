@@ -23,8 +23,8 @@ type RouteFiles = {
     id: "root";
     page: "/" | "/login";
   };
-  "./users/add1.jsx": {
-    id: "users/add1";
+  "./login/tapbar.jsx": {
+    id: "login/tapbar";
     page: "/";
   };
   "./login/login.jsx": {
