@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import MenuItem from '@mui/material/MenuItem';
+import {Menu ,MenuItem} from '@mui/material';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 
@@ -22,17 +22,7 @@ export default function ButtonAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // if (typeof window !== 'undefined') {
-  //   // safe to access document
-  // }
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <ButtonAppBar />,
-  //     // ✅ Add this line to fix the error
-  //     loader: () => null,
-  //   }
-  // ]);
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -50,7 +40,8 @@ export default function ButtonAppBar() {
              aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon
+           
+            <Menu
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
@@ -63,7 +54,8 @@ export default function ButtonAppBar() {
               <MenuItem onClick={handleClose}>Admin</MenuItem>
               <MenuItem onClick={handleClose}>Accountanter</MenuItem>
               <MenuItem onClick={handleClose}>Add User</MenuItem>
-            </MenuIcon>
+            </Menu>
+            <MenuIcon />
           </IconButton>
 
           {/* Title or branding */}
